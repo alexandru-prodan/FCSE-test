@@ -48,3 +48,15 @@ export default tseslint.config({
   },
 })
 ```
+Had to use Vite to setup the project as React updated to 19.0.0 but some of its dependencies were still not updated causing install issues when using npm for install.
+
+In order to be able to run the project, do the following:
+
+npm i
+npm run dev
+should be able to access the application at localhost:5173
+
+-- notes
+
+I've added a .env.dist file to be used in order to access the graphql_uri, should be enough to just create a .env file in the root project and add the GRAPHQL_URI value there
+

@@ -24,7 +24,7 @@ const authLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 const httpLink = new HttpLink({
-  uri: "https://cms.trial-task.k8s.ext.fcse.io/graphql",
+  uri: `${import.meta.env.VITE_GRAPHQL_URI}`,
 });
 
 const apiClient = new ApolloClient({
