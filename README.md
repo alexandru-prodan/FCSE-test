@@ -15,4 +15,4 @@ should be able to access the application at localhost:5173
 
 I've added a .env.dist file to be used in order to access the graphql_uri, should be enough to just create a .env file in the root project and add the VITE_GRAPHQL_URI value there
 
-to run the tests, from root dir, just run npm test or npm test -- -u
+to run the tests, from root dir, just run npm test or npm test -- -u to generate the snapshots
