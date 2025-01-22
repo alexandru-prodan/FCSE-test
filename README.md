@@ -58,5 +58,5 @@ should be able to access the application at localhost:5173
 
 -- notes
 
-I've added a .env.dist file to be used in order to access the graphql_uri, should be enough to just create a .env file in the root project and add the GRAPHQL_URI value there
+I've added a .env.dist file to be used in order to access the graphql_uri, should be enough to just create a .env file in the root project and add the VITE_GRAPHQL_URI value there
 

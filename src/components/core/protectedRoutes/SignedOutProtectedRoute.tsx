@@ -14,7 +14,6 @@ const SignedOutProtectedRoute = ({
 }: SignedOutProtectedRouteProps) => {
   const { isAuthenticated, authError, loading } = useAuthContext();
 
-  console.log(isAuthenticated);
 
   if (loading) {
     return <Loading />;

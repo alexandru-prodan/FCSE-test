@@ -12,12 +12,14 @@ import SignedInProtectedRoute from "./components/core/protectedRoutes/SignedInPr
 import GlobalStyles from "./styles/GlobalStyles.ts";
 import SignedOutProtectedRoute from "./components/core/protectedRoutes/SignedOutProtectedRoute.tsx";
 import Account from "./pages/account/Account.ts";
+import LanguageSelector from "./components/utils/language/LanguageSelector.tsx";
 
 const App: React.FC = () => {
   return (
     <>
       <GlobalStyles />
       <Router>
+        <LanguageSelector />
         <AuthProvider>
           <Routes>
             <Route

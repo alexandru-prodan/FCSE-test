@@ -12,13 +12,13 @@ interface AuthContextType {
   loading: boolean;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 interface AuthProviderProps {
   children: ReactNode;
 }
 
-interface User {
+export interface User {
   id: string;
   email: string;
   firstName: string;
@@ -92,7 +92,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const logout = () => {
-    console.log("entered here");
     setIsAuthenticated(false);
     Cookies.remove("auth_token");
     Cookies.remove("user_id");

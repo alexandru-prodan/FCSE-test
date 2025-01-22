@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { SetStateAction, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "@apollo/client";
 import {
@@ -28,6 +28,14 @@ interface LoginForm {
   password: string;
 }
 
+export interface ErrorMessage {
+  errors: {
+    extensions: {
+      exception: { data: { data: { messages: { message: string }[] }[] } };
+    };
+  }[];
+}
+
 const Login: React.FC = () => {
   const {
     register,
@@ -37,7 +45,7 @@ const Login: React.FC = () => {
     mode: "onBlur",
   });
 
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const { login: auth } = useAuthContext();
 
@@ -65,9 +73,11 @@ const Login: React.FC = () => {
       });
 
       if (errors && errors[0].extensions) {
-        return setLoginError(
-          errors[0].extensions.exception.data.data[0].messages[0].message
-        );
+        // @ts-ignore
+        const errorMessage: ErrorMessage = errors[0].extensions.exception.data
+          ?.data[0].messages[0].message as ErrorMessage;
+
+        return setLoginError(errorMessage as SetStateAction<any>);
       }
 
       if (data && data.login && data.login.jwt) {
@@ -83,12 +93,13 @@ const Login: React.FC = () => {
       <Container>
         <Title>Login</Title>
 
-        {loginError && <Error>{loginError}</Error>}
+        {loginError && <Error data-testid="error-state">{loginError}</Error>}
 
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormGroup>
             <Label htmlFor="email">{t("email")}</Label>
             <Input
+              data-testid="input-email"
               id="email"
               type="email"
               {...register("email", {
@@ -98,7 +109,7 @@ const Login: React.FC = () => {
                   message: "Email is not valid",
                 },
               })}
-              placeholder="Enter your email"
+              placeholder={`${t("email_placeholder")}`}
             />
             {errors.email && <ErrorText>{errors.email.message}</ErrorText>}
           </FormGroup>
@@ -106,17 +117,22 @@ const Login: React.FC = () => {
           <FormGroup>
             <Label htmlFor="password">{t("Password")}</Label>
             <Input
+              data-testid="input-password"
               id="password"
               type="password"
               {...register("password", { required: "Password is required" })}
-              placeholder="Enter your password"
+              placeholder={`${t("password_placeholder")}`}
             />
             {errors.password && (
               <ErrorText>{errors.password.message}</ErrorText>
             )}
           </FormGroup>
 
-          <SubmitButton disabled={loading} type="submit">
+          <SubmitButton
+            data-testid="submit-action"
+            disabled={loading}
+            type="submit"
+          >
             Login
           </SubmitButton>
         </Form>
